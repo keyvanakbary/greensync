@@ -1,6 +1,8 @@
 defmodule Greenhousex.Harvest.Application do
   use TypedStruct
 
+  alias Greenhousex.Harvest.DateTime
+
   typedstruct do
     field(:id, integer, enforce: true)
     field(:prospect, bool, enforce: true)
@@ -26,19 +28,9 @@ defmodule Greenhousex.Harvest.Application do
       current_stage_id: map["current_stage"]["id"],
       prospective_office_id: map["prospective_office"]["id"],
       prospective_department_id: map["prospective_department"]["id"],
-      applied_at: to_date(map["applied_at"]),
-      last_activity_at: to_date(map["last_activity_at"]),
-      rejected_at: to_date(map["rejected_at"])
+      applied_at: DateTime.from_iso8601(map["applied_at"]),
+      last_activity_at: DateTime.from_iso8601(map["last_activity_at"]),
+      rejected_at: DateTime.from_iso8601(map["rejected_at"])
     }
-  end
-
-  defp to_date(nil), do: nil
-
-  defp to_date(value) do
-    with {:ok, datetime, _offset} <- DateTime.from_iso8601(value) do
-      DateTime.truncate(datetime, :second)
-    else
-      _error -> nil
-    end
   end
 end

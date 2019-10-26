@@ -1,6 +1,8 @@
 defmodule Greenhousex.Harvest.JobStage do
   use TypedStruct
 
+  alias Greenhousex.Harvest.DateTime
+
   typedstruct do
     field(:id, integer, enforce: true)
     field(:name, String.t(), enforce: true)
@@ -15,16 +17,8 @@ defmodule Greenhousex.Harvest.JobStage do
       id: map["id"],
       name: map["name"],
       job_id: map["job_id"],
-      created_at: to_date(map["created_at"]),
-      updated_at: to_date(map["updated_at"])
+      created_at: DateTime.from_iso8601(map["created_at"]),
+      updated_at: DateTime.from_iso8601(map["updated_at"])
     }
-  end
-
-  defp to_date(value) do
-    with {:ok, datetime, _offset} <- DateTime.from_iso8601(value) do
-      DateTime.truncate(datetime, :second)
-    else
-      _error -> nil
-    end
   end
 end

@@ -9,6 +9,7 @@ config :greensync, Greensync.Store.Repo,
 
 config :greensync, :greenhouse_api_token, System.fetch_env!("GREENHOUSE_API_TOKEN")
 
-config :greensync, Greensync.Scheduler, jobs: [
-  {System.get_env("CRON_SCHEDULE", "*/15 * * * *"), {Greensync.Sync, :all, []}}
-]
+config :greensync, Greensync.Scheduler,
+  jobs: [
+    {System.get_env("CRON_SCHEDULE", "*/15 * * * *"), {Greensync.Sync, :all, []}}
+  ]
