@@ -27,9 +27,9 @@ defmodule Greensync.Store.Repo do
   @spec add_jobs([Harvest.Job.t()]) :: num_results
   def add_jobs(jobs) do
     num =
-    jobs
-    |> Enum.map(&Model.Job.from_harvest/1)
-    |> bulk_insert(Model.Job)
+      jobs
+      |> Enum.map(&Model.Job.from_harvest/1)
+      |> bulk_insert(Model.Job)
 
     jobs
     |> Enum.map(&Model.JobDepartment.from_harvest/1)
@@ -47,16 +47,15 @@ defmodule Greensync.Store.Repo do
   @spec add_applications([Harvest.Application.t()]) :: num_results
   def add_applications(applications) do
     num =
-    applications
-    |> Enum.map(&Model.Application.from_harvest/1)
-    |> bulk_insert(Model.Application)
+      applications
+      |> Enum.map(&Model.Application.from_harvest/1)
+      |> bulk_insert(Model.Application)
 
     applications
     |> Enum.map(&Model.ApplicationJob.from_harvest/1)
     |> List.flatten()
     |> bulk_insert(Model.ApplicationJob)
 
-    # on_conflict: :nothing
     num
   end
 
