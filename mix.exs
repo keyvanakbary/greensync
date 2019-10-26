@@ -23,6 +23,7 @@ defmodule Greenhousex.MixProject do
   defp deps do
     [
       {:tesla, "~> 1.3.0"},
+      {:hackney, "~> 1.15.0"},
       {:jason, "~> 1.0"},
       {:typed_struct, "~> 0.1.4"},
       {:quantum, "~> 2.3"},

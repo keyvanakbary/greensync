@@ -17,4 +17,6 @@ config :greensync, Greensync.Scheduler,
     {"*/15 * * * *", {Greensync.Sync, :all, []}}
   ]
 
+config :tesla, adapter: Tesla.Adapter.Hackney
+
 config :logger, level: :info
