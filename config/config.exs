@@ -14,7 +14,7 @@ config :greensync, greenhouse_api_token: System.get_env("GREENHOUSE_API_TOKEN", 
 config :greensync, Greensync.Scheduler,
   overlap: false,
   jobs: [
-    {"*/15 * * * *", {Greensync.Sync, :all, []}}
+    {"* * * * *", {Greensync.Sync, :all, []}}
   ]
 
 config :tesla, adapter: Tesla.Adapter.Hackney

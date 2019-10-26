@@ -1,6 +1,6 @@
 # Greensync
 
-Tool for syncing [Greenhouse Harvest API](https://developers.greenhouse.io/harvest.html) and a MySQL database of your choice. It pulls new data every 15 minutes.
+Tool for syncing [Greenhouse Harvest API](https://developers.greenhouse.io/harvest.html) and a MySQL database of your choice. It pulls new data every 15 minutes by default.
 
 ## Motivation
 
@@ -17,6 +17,11 @@ Run the image
       -e DB_HOST="localhost" \
       -e GREENHOUSE_API_TOKEN="YOUR_TOKEN" \
       keyvanakbary/greensync
+
+Additionally, you can pass the following environment variables
+
+* `DB_PORT`, defaults to `3306`
+* `CRON_SCHEDULE`, defaults to `*/15 * * * *` (every 15 minutes)
 
 Run the tool along with a MySQL database via docker-compose
 
