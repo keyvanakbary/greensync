@@ -87,33 +87,33 @@ defmodule Greensync.Store.Repo do
     |> bulk_insert(Model.Department)
   end
 
-  def last_user_created_at(default),
-    do: query_latest_field(Model.User, :created_at, default)
+  def last_user_created_at(),
+    do: query_latest_field(Model.User, :created_at)
 
-  def last_application_applied_at(default),
-    do: query_latest_field(Model.Application, :applied_at, default)
+  def last_application_applied_at(),
+    do: query_latest_field(Model.Application, :applied_at)
 
-  def last_job_created_at(default),
-    do: query_latest_field(Model.Job, :created_at, default)
+  def last_job_created_at(),
+    do: query_latest_field(Model.Job, :created_at)
 
-  def last_job_stage_created_at(default),
-    do: query_latest_field(Model.JobStage, :created_at, default)
+  def last_job_stage_created_at(),
+    do: query_latest_field(Model.JobStage, :created_at)
 
-  def last_candidate_created_at(default),
-    do: query_latest_field(Model.Candidate, :created_at, default)
+  def last_candidate_created_at(),
+    do: query_latest_field(Model.Candidate, :created_at)
 
-  def last_scorecard_created_at(default),
-    do: query_latest_field(Model.Scorecard, :created_at, default)
+  def last_scorecard_created_at(),
+    do: query_latest_field(Model.Scorecard, :created_at)
 
-  defp query_latest_field(schema, field, default) do
+  defp query_latest_field(schema, field) do
     schema
     |> from(select: ^[field], order_by: ^[desc: field], limit: 1)
     |> one()
-    |> extract_field(field, default)
+    |> extract_field(field)
   end
 
-  defp extract_field(nil, _field, default), do: default
-  defp extract_field(result, field, default), do: Map.get(result, field, default)
+  defp extract_field(nil, _field), do: nil
+  defp extract_field(result, field), do: Map.get(result, field)
 
   defp bulk_insert(entities, model) do
     entries = entities |> Enum.map(&to_map/1)

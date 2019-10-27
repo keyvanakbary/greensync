@@ -129,10 +129,14 @@ defmodule Greenhousex.Harvest do
           {:halt, nil}
 
         page ->
-          query = Keyword.get(opts, :query, [])
-          new_query = Keyword.put(query, :page, page)
-          new_opts = Keyword.put(opts, :query, new_query)
+          new_query =
+            opts
+            |> Keyword.get(:query, [])
+            |> Keyword.put(:page, page)
+            |> remove_nil_params()
+            |> datetimes_to_iso8601()
 
+          new_opts = Keyword.put(opts, :query, new_query)
           result = get(url, new_opts)
 
           if has_next?(result) do
@@ -143,6 +147,17 @@ defmodule Greenhousex.Harvest do
       end,
       fn a -> a end
     )
+  end
+
+  defp remove_nil_params(query) do
+    Enum.filter(query, fn {_k, v} -> !is_nil(v) end)
+  end
+
+  defp datetimes_to_iso8601(query) do
+    Enum.map(query, fn
+      {k, %DateTime{} = d} -> {k, DateTime.to_iso8601(d)}
+      kv -> kv
+    end)
   end
 
   defp has_next?({:ok, response}) do
