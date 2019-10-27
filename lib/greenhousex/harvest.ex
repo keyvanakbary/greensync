@@ -133,10 +133,9 @@ defmodule Greenhousex.Harvest do
           new_query = Keyword.put(query, :page, page)
           new_opts = Keyword.put(opts, :query, new_query)
 
-          {_, response} = result = get(url, new_opts)
-          link_header = Tesla.get_header(response, "link")
+          result = get(url, new_opts)
 
-          if has_next?(link_header) do
+          if has_next?(result) do
             {[result], page + 1}
           else
             {[result], nil}
@@ -146,8 +145,14 @@ defmodule Greenhousex.Harvest do
     )
   end
 
-  defp has_next?(link_header) when is_binary(link_header) do
-    Regex.match?(~r/<([^>]+)>; rel="next"/, link_header)
+  defp has_next?({:ok, response}) do
+    case Tesla.get_header(response, "link") do
+      link_header when is_binary(link_header) ->
+        Regex.match?(~r/<([^>]+)>; rel="next"/, link_header)
+
+      _ ->
+        false
+    end
   end
 
   defp has_next?(_), do: false
