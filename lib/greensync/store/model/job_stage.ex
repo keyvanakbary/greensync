@@ -2,6 +2,7 @@ defmodule Greensync.Store.Model.JobStage do
   use Ecto.Schema
 
   alias Greenhousex.Harvest.JobStage
+  alias Greensync.Store.Model.DateTime
 
   schema "job_stages" do
     field(:name)
@@ -15,8 +16,8 @@ defmodule Greensync.Store.Model.JobStage do
       id: job_stage.id,
       name: job_stage.name,
       job_id: job_stage.job_id,
-      created_at: job_stage.created_at,
-      updated_at: job_stage.updated_at
+      created_at: DateTime.normalize(job_stage.created_at),
+      updated_at: DateTime.normalize(job_stage.updated_at)
     }
   end
 end

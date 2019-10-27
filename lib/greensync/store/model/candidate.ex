@@ -2,6 +2,7 @@ defmodule Greensync.Store.Model.Candidate do
   use Ecto.Schema
 
   alias Greenhousex.Harvest.Candidate
+  alias Greensync.Store.Model.DateTime
 
   schema "candidates" do
     field(:title)
@@ -16,8 +17,8 @@ defmodule Greensync.Store.Model.Candidate do
       # last_name: candidate.last_name, # GDPR
       # company: candidate.company, # GDPR
       title: candidate.title,
-      updated_at: candidate.updated_at,
-      created_at: candidate.created_at
+      updated_at: DateTime.normalize(candidate.updated_at),
+      created_at: DateTime.normalize(candidate.created_at)
     }
   end
 end

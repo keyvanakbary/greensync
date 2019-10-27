@@ -2,6 +2,7 @@ defmodule Greensync.Store.Model.User do
   use Ecto.Schema
 
   alias Greenhousex.Harvest.User
+  alias Greensync.Store.Model.DateTime
 
   schema "users" do
     field(:name)
@@ -23,8 +24,8 @@ defmodule Greensync.Store.Model.User do
       primary_email_address: user.primary_email_address,
       disabled: user.disabled,
       site_admin: user.site_admin,
-      updated_at: user.updated_at,
-      created_at: user.created_at
+      updated_at: DateTime.normalize(user.updated_at),
+      created_at: DateTime.normalize(user.created_at)
     }
   end
 end

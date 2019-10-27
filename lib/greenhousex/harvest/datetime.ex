@@ -3,7 +3,7 @@ defmodule Greenhousex.Harvest.DateTime do
 
   def from_iso8601(value) do
     with {:ok, datetime, _offset} <- DateTime.from_iso8601(value) do
-      DateTime.truncate(datetime, :second)
+      datetime
     else
       _error -> nil
     end

@@ -2,6 +2,7 @@ defmodule Greensync.Store.Model.Scorecard do
   use Ecto.Schema
 
   alias Greenhousex.Harvest.Scorecard
+  alias Greensync.Store.Model.DateTime
 
   schema "scorecards" do
     field(:candidate_id, :integer)
@@ -23,12 +24,12 @@ defmodule Greensync.Store.Model.Scorecard do
       application_id: scorecard.application_id,
       overall_recommendation: scorecard.overall_recommendation,
       submitter_id: scorecard.submitter_id,
-      submitted_at: scorecard.submitted_at,
+      submitted_at: DateTime.normalize(scorecard.submitted_at),
       interview: scorecard.interview,
       interviewer_id: scorecard.interviewer_id,
-      interviewed_at: scorecard.interviewed_at,
-      updated_at: scorecard.updated_at,
-      created_at: scorecard.created_at
+      interviewed_at: DateTime.normalize(scorecard.interviewed_at),
+      updated_at: DateTime.normalize(scorecard.updated_at),
+      created_at: DateTime.normalize(scorecard.created_at)
     }
   end
 end

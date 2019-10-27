@@ -2,6 +2,7 @@ defmodule Greensync.Store.Model.Application do
   use Ecto.Schema
 
   alias Greenhousex.Harvest.Application
+  alias Greensync.Store.Model.DateTime
 
   schema "applications" do
     field(:prospect, :boolean)
@@ -22,11 +23,11 @@ defmodule Greensync.Store.Model.Application do
       candidate_id: application.candidate_id,
       status: application.status,
       current_stage_id: application.current_stage_id,
-      applied_at: application.applied_at,
-      last_activity_at: application.last_activity_at,
+      applied_at: DateTime.normalize(application.applied_at),
+      last_activity_at: DateTime.normalize(application.last_activity_at),
       prospective_office_id: application.prospective_office_id,
       prospective_department_id: application.prospective_department_id,
-      rejected_at: application.rejected_at
+      rejected_at: DateTime.normalize(application.rejected_at)
     }
   end
 end
