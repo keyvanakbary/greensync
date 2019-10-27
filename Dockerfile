@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . .
 
 RUN mix deps.get && \
-    mix release
+    mix release --quiet
 
 # RELEASE
 FROM alpine:3.9.2
