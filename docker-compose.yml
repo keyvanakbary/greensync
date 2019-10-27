@@ -27,6 +27,7 @@ services:
       DB_NAME: greensync
       DB_USER: greensync
       DB_PASS: pass
+      CRON_SCHEDULE: "* * * * *"
       GREENHOUSE_API_TOKEN: "${GREENHOUSE_API_TOKEN}"
 
 volumes:
