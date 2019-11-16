@@ -7,7 +7,7 @@ defmodule Greenhousex.Harvest do
   plug(Tesla.Middleware.BaseUrl, "https://harvest.greenhouse.io/v1")
 
   plug(Tesla.Middleware.BasicAuth, %{
-    username: Application.get_env(:greensync, :greenhouse_api_token),
+    username: Application.get_env(:greenhousex, :greenhouse_api_token),
     password: ""
   })
 
