@@ -35,8 +35,8 @@ Run just the database
 
 Run the service via Mix
 
-    mix run
+    GREENHOUSE_API_TOKEN="YOUR_TOKEN" mix run
 
 Sync all via Mix task
 
-    mix sync.all
+    GREENHOUSE_API_TOKEN="YOUR_TOKEN" mix sync.all
